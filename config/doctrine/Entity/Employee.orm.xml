@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Entity\Employee" table="employee">
+        <id name="id" type="uuid" column="id">
+            <generator strategy="CUSTOM"/>
+            <custom-id-generator class="Symfony\Component\Uid\Doctrine\UuidGenerator"/>
+        </id>
+
+        <field name="name" column="name" length="255" />
+        <field name="surname" column="surname"  length="255" />
+
+        <field name="baseSalary" column="base_salary" type="float" />
+        <field name="yearsOfWork" column="years_of_work" type="integer" />
+
+        <many-to-one field="department"
+                     target-entity="App\Entity\Department">
+            <join-column name="department_id"
+                         referenced-column-name="id"
+                         nullable="false"
+                         on-delete="CASCADE" />
+        </many-to-one>
+    </entity>
+
+</doctrine-mapping>

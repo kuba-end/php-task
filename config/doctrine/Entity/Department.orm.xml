@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Entity\Department" table="department">
+        <id name="id" type="uuid" column="id">
+            <generator strategy="CUSTOM"/>
+            <custom-id-generator class="Symfony\Component\Uid\Doctrine\UuidGenerator"/>
+        </id>
+
+        <field name="name" length="255" />
+
+        <field name="bonusType" column="bonus_type" length="20" />
+
+        <field name="bonusValue" column="bonus_value" type="float" />
+    </entity>
+
+</doctrine-mapping>

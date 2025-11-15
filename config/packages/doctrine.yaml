@@ -8,8 +8,8 @@ doctrine:
         mappings:
             Entity:
                 is_bundle: false
-                type: xml
-                dir: '%kernel.project_dir%/config/doctrine/Entity'
+                type: attribute
+                dir: '%kernel.project_dir%/src/Entity'
                 prefix: App\Entity
 
 when@test:
