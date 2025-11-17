@@ -23,12 +23,13 @@ class EmployeeRepository extends ServiceEntityRepository implements EmployeeRepo
     public function findAllFilteredAndSorted(array $filters = [], ?string $sort = null): array
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
-            ->select('e')
-            ->from(Employee::class, 'e');
+            ->select('e', 'd')
+            ->from(Employee::class, 'e')
+            ->leftJoin('e.department', 'd');
 
         if (isset($filters['department'])) {
-            $qb->andWhere('e.department = :department')
-                ->setParameter('department', $filters['department']);
+            $qb->andWhere('d.name = :departmentName')
+                ->setParameter('departmentName', $filters['department']);
         }
 
         if (isset($filters['surname'])) {
