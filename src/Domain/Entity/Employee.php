@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Domain\Employee\Entity;
+namespace App\Domain\Entity;
 
-use App\Domain\Department\Entity\Department;
 use App\Infrastructure\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;

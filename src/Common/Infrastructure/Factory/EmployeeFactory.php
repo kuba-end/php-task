@@ -2,7 +2,7 @@
 
 namespace App\Common\Infrastructure\Factory;
 
-use App\Domain\Employee\Entity\Employee;
+use App\Domain\Entity\Employee;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**

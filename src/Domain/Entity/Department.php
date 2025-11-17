@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Department\Entity;
+namespace App\Domain\Entity;
 
 use App\Domain\Enum\DepartmentBonusTypeEnum;
 use App\Infrastructure\Repository\DepartmentRepository;

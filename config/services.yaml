@@ -19,13 +19,13 @@ services:
 #            - '../src/**/*Exception.php'
             - '../src/Kernel.php'
 
-    App\Domain\Calculator\FixedBonusStrategy:
+    App\Domain\Employee\Calculator\Strategy\FixedBonusStrategy:
         tags: ['app.bonus_strategy']
 
-    App\Domain\Calculator\PercentageBonusStrategy:
+    App\Domain\Employee\Calculator\Strategy\PercentageBonusStrategy:
         tags: ['app.bonus_strategy']
 
-    App\Domain\Calculator\RemunerationCalculator:
+    App\Domain\Employee\Calculator\Strategy\RemunerationCalculator:
         arguments:
             $strategies: !tagged_iterator 'app.bonus_strategy'
 

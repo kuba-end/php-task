@@ -2,7 +2,7 @@
 
 namespace App\Common\Infrastructure\Factory;
 
-use App\Domain\Department\Entity\Department;
+use App\Domain\Entity\Department;
 use App\Domain\Enum\DepartmentBonusTypeEnum;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 

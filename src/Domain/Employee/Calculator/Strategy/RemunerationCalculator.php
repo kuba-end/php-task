@@ -2,20 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Employee\Calculator;
+namespace App\Domain\Employee\Calculator\Strategy;
 
-use App\Domain\Employee\Entity\Employee;
+use App\Domain\Employee\Calculator\DTO\AdditionDTO;
+use App\Domain\Employee\Calculator\StrategyNotFoundException;
+use App\Domain\Entity\Employee;
 
 class RemunerationCalculator
 {
     /** @var array<BonusStrategyInterface> */
-    private readonly array $strategies;
+    private readonly iterable $strategies;
+
     public function __construct(iterable $strategies)
     {
         $this->strategies = $strategies;
     }
 
-    public function calculate(Employee $employee): int
+    public function calculate(Employee $employee): AdditionDTO
     {
         $bonusType = $employee->getDepartment()->getBonusType();
 

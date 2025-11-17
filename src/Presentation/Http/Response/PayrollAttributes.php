@@ -2,21 +2,27 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Payroll\Query;
+namespace App\Presentation\Http\Response;
 
+use OpenApi\Attributes as OA;
 
-use Symfony\Component\Uid\Uuid;
-
-class PayrollReportItem
+#[OA\Schema]
+class PayrollAttributes
 {
     public function __construct(
-        public readonly Uuid $employeeId,
+        #[OA\Property()]
         public readonly string $name,
+        #[OA\Property()]
         public readonly string $surname,
+        #[OA\Property()]
         public readonly string $department,
+        #[OA\Property()]
         public readonly float $baseRemuneration,
-        public readonly float $additionAmount,
+        #[OA\Property()]
+        public readonly float $addition,
+        #[OA\Property()]
         public readonly string $bonusType,
+        #[OA\Property()]
         public readonly float $finalRemuneration,
     )
     {

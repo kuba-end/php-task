@@ -1,1 +1,4 @@
-
+payroll.get:
+  path: /api/payroll
+  controller: App\Presentation\Http\Controller\PayrollController::getPayrollAction
+  methods: [GET]

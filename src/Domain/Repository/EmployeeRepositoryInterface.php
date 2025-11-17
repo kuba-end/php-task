@@ -6,5 +6,4 @@ namespace App\Domain\Repository;
 
 interface EmployeeRepositoryInterface
 {
-
 }

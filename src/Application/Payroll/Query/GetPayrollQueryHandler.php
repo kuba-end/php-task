@@ -6,9 +6,11 @@ namespace App\Application\Payroll\Query;
 
 
 use App\Application\Payroll\Transformer\PayrollTransformer;
-use App\Domain\Employee\Calculator\RemunerationCalculator;
+use App\Domain\Employee\Calculator\Strategy\RemunerationCalculator;
 use App\Domain\Repository\EmployeeRepositoryInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 class GetPayrollQueryHandler
 {
 
@@ -23,15 +25,15 @@ class GetPayrollQueryHandler
     /**
      * @return array<PayrollReportItem>
      */
-    public function __invoke(): array
+    public function __invoke(GetPayrollReportQuery $query): array
     {
         $employees = $this->employeeRepository->findAll();
 
         $result = [];
         foreach ($employees as $employee) {
-            $finalRemuneration = $this->calculator->calculate($employee);
+            $additionData = $this->calculator->calculate($employee);
 
-            $result[] = $this->payrollTransformer->transform($employee, $finalRemuneration);
+            $result[] = $this->payrollTransformer->transform($employee, $additionData);
         }
 
         return $result;
