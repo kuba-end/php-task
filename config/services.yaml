@@ -18,3 +18,14 @@ services:
         exclude:
 #            - '../src/**/*Exception.php'
             - '../src/Kernel.php'
+
+    App\Domain\Calculator\FixedBonusStrategy:
+        tags: ['app.bonus_strategy']
+
+    App\Domain\Calculator\PercentageBonusStrategy:
+        tags: ['app.bonus_strategy']
+
+    App\Domain\Calculator\RemunerationCalculator:
+        arguments:
+            $strategies: !tagged_iterator 'app.bonus_strategy'
+

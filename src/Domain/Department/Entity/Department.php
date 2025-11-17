@@ -1,23 +1,28 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain\Department\Entity;
 
-use App\Repository\DepartmentRepository;
+use App\Domain\Enum\DepartmentBonusTypeEnum;
+use App\Infrastructure\Repository\DepartmentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
+use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 class Department
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'uuid', unique: true)]
+    #[ORM\Column(type: UuidType::NAME, unique: true)]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
     private Uuid $id;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 20)]
-    private ?string $bonusType = null;
+    #[ORM\Column(enumType: DepartmentBonusTypeEnum::class)]
+    private ?DepartmentBonusTypeEnum $bonusType = null;
 
     #[ORM\Column]
     private ?int $bonusValue = null;
@@ -39,12 +44,12 @@ class Department
         return $this;
     }
 
-    public function getBonusType(): ?string
+    public function getBonusType(): ?DepartmentBonusTypeEnum
     {
         return $this->bonusType;
     }
 
-    public function setBonusType(string $bonusType): static
+    public function setBonusType(DepartmentBonusTypeEnum $bonusType): static
     {
         $this->bonusType = $bonusType;
 

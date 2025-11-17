@@ -1,16 +1,21 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain\Employee\Entity;
 
-use App\Repository\EmployeeRepository;
+use App\Domain\Department\Entity\Department;
+use App\Infrastructure\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
+use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
 class Employee
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'uuid', unique: true)]
+    #[ORM\Column(type: UuidType::NAME, unique: true)]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
     private Uuid $id;
 
     #[ORM\Column(length: 255)]
@@ -25,7 +30,7 @@ class Employee
     #[ORM\Column]
     private ?int $yearsOfWork = null;
 
-    #[ORM\ManyToOne(targetEntity: Department::class, inversedBy: 'employees')]
+    #[ORM\ManyToOne(targetEntity: Department::class)]
     #[ORM\JoinColumn(name: 'department_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     private Department $department;
 

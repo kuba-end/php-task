@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Repository;
+namespace App\Infrastructure\Repository;
 
-use App\Entity\Employee;
+use App\Domain\Employee\Entity\Employee;
+use App\Domain\Repository\EmployeeRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Employee>
  */
-class EmployeeRepository extends ServiceEntityRepository
+class EmployeeRepository extends ServiceEntityRepository implements EmployeeRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
