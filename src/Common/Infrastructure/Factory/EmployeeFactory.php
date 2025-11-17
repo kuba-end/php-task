@@ -33,8 +33,8 @@ final class EmployeeFactory extends PersistentProxyObjectFactory
     {
         return [
             'department' => DepartmentFactory::random(), // <- key fix
-            'name' => self::faker()->text(20),
-            'surname' => self::faker()->text(20),
+            'name' => self::faker()->firstName(),
+            'surname' => self::faker()->lastName(20),
             'remunerationBase' => self::faker()->numberBetween(1000, 10000),
             'yearsOfWork' => self::faker()->numberBetween(1, 20),
         ];

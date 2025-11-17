@@ -31,7 +31,7 @@ class PayrollResponseTransformer
                         department: $payrollItem->department,
                         baseRemuneration: $payrollItem->baseRemuneration,
                         addition: $payrollItem->additionAmount,
-                        bonusType: $payrollItem->department,
+                        bonusType: $payrollItem->bonusType,
                         finalRemuneration: $payrollItem->finalRemuneration,
                     )
                 ));

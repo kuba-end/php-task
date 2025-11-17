@@ -29,3 +29,6 @@ services:
         arguments:
             $strategies: !tagged_iterator 'app.bonus_strategy'
 
+    App\Infrastructure\Listener\QueryExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }

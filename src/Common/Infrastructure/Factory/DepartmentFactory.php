@@ -42,7 +42,7 @@ final class DepartmentFactory extends PersistentProxyObjectFactory
         };
 
         return [
-            'name' => self::faker()->text(30),
+            'name' => self::faker()->colorName(),
             'bonusType' => $bonusType,
             'bonusValue' => $bonusValue,
         ];

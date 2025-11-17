@@ -27,7 +27,7 @@ class GetPayrollQueryHandler
      */
     public function __invoke(GetPayrollReportQuery $query): array
     {
-        $employees = $this->employeeRepository->findAll();
+        $employees = $this->employeeRepository->findAllFilteredAndSorted($query->filters, $query->sort);
 
         $result = [];
         foreach ($employees as $employee) {

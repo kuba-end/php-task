@@ -11,9 +11,11 @@ use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
+use Throwable;
 
 #[AsController]
 class PayrollController
@@ -38,6 +40,27 @@ class PayrollController
                 in: 'query',
                 required: false,
                 schema: new OA\Schema(type: 'string', default: 'asc', enum: ['asc', 'desc'])
+            ),
+            new OA\Parameter(
+                name: 'filter[department]',
+                description: 'Filters payroll',
+                in: 'query',
+                required: false,
+                schema: new OA\Schema(type: 'string', example: 'CadetBlue')
+            ),
+            new OA\Parameter(
+                name: 'filter[name]',
+                description: 'Filters payroll',
+                in: 'query',
+                required: false,
+                schema: new OA\Schema(type: 'string', example: 'Vernon')
+            ),
+            new OA\Parameter(
+                name: 'filter[surname]',
+                description: 'Filters payroll',
+                in: 'query',
+                required: false,
+                schema: new OA\Schema(type: 'string', example: 'Price')
             )
         ],
         responses: [
@@ -50,11 +73,18 @@ class PayrollController
             )
         ]
     )]
-    public function getPayrollAction(): JsonResponse
+    public function getPayrollAction(
+        #[MapQueryParameter('sort')] ?string $sort,
+        #[MapQueryParameter('filters')] array $filters = []
+    ): JsonResponse
     {
         $envelope = $this->messageBus->dispatch(
-            new GetPayrollReportQuery()
+            new GetPayrollReportQuery(
+                sort: $sort,
+                filters: $filters
+            )
         );
+
         /** @var HandledStamp|null $handled */
         $handled = $envelope->last(HandledStamp::class);
 

@@ -26,11 +26,10 @@ class SeedCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        // create 10 departments
         DepartmentFactory::createMany(7);
         EmployeeFactory::createMany(30);
-//        DepartmentFactory::repository()->truncate(); // deletes all rows
-//        EmployeeFactory::repository()->truncate(); // deletes all rows
+//        DepartmentFactory::repository()->truncate();
+//        EmployeeFactory::repository()->truncate();
 
         // flush DB writes
         return Command::SUCCESS;

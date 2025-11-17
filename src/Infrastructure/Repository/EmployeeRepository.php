@@ -17,28 +17,47 @@ class EmployeeRepository extends ServiceEntityRepository implements EmployeeRepo
         parent::__construct($registry, Employee::class);
     }
 
-//    /**
-//     * @return Employee[] Returns an array of Employee objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return array<Employee>
+     */
+    public function findAllFilteredAndSorted(array $filters = [], ?string $sort = null): array
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('e')
+            ->from(Employee::class, 'e');
 
-//    public function findOneBySomeField($value): ?Employee
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if (isset($filters['department'])) {
+            $qb->andWhere('e.department = :department')
+                ->setParameter('department', $filters['department']);
+        }
+
+        if (isset($filters['surname'])) {
+            $qb->andWhere('e.surname = :surname')
+                ->setParameter('surname', $filters['surname']);
+        }
+
+        if (isset($filters['name'])) {
+            $qb->andWhere('e.name = :name')
+                ->setParameter('name', $filters['name']);
+        }
+
+        if ($sort !== null) {
+            [$field, $direction] = $this->parseSort($sort);
+            $qb->orderBy("e.$field", $direction);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    private function parseSort(string $sort): array
+    {
+        $direction = 'ASC';
+
+        if (str_starts_with($sort, '-')) {
+            $direction = 'DESC';
+            $sort = substr($sort, 1);
+        }
+
+        return [$sort, $direction];
+    }
 }
