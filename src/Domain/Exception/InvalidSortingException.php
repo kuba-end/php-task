@@ -6,7 +6,7 @@ namespace App\Domain\Exception;
 
 use Exception;
 
-class StrategyNotFoundException extends Exception
+class InvalidSortingException extends Exception
 {
 
 }

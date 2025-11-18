@@ -29,8 +29,8 @@ class PayrollResponseTransformer
                         name: $payrollItem->name,
                         surname: $payrollItem->surname,
                         department: $payrollItem->department,
-                        baseRemuneration: $payrollItem->baseRemuneration,
-                        addition: $payrollItem->additionAmount,
+                        remunerationBase: $payrollItem->baseRemuneration,
+                        additionAmount: $payrollItem->additionAmount,
                         bonusType: $payrollItem->bonusType,
                         finalRemuneration: $payrollItem->finalRemuneration,
                     )

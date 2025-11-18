@@ -17,9 +17,9 @@ class PayrollAttributes
         #[OA\Property()]
         public readonly string $department,
         #[OA\Property()]
-        public readonly float $baseRemuneration,
+        public readonly float $remunerationBase,
         #[OA\Property()]
-        public readonly float $addition,
+        public readonly float $additionAmount,
         #[OA\Property()]
         public readonly string $bonusType,
         #[OA\Property()]

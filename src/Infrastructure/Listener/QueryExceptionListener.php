@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Listener;
 
+use App\Domain\Exception\InvalidSortingException;
 use Doctrine\ORM\Query\QueryException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -15,7 +16,7 @@ class QueryExceptionListener
     {
         $e = $event->getThrowable();
 
-        if ($e instanceof QueryException) {
+        if ($e instanceof InvalidSortingException) {
             $response = new JsonResponse([
                 'errors' => [
                     [

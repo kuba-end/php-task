@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Repository;
 
+use App\Application\Payroll\Query\SortResolver;
 use App\Domain\Entity\Employee;
 use App\Domain\Repository\EmployeeRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -20,7 +21,7 @@ class EmployeeRepository extends ServiceEntityRepository implements EmployeeRepo
     /**
      * @return array<Employee>
      */
-    public function findAllFilteredAndSorted(array $filters = [], ?string $sort = null): array
+    public function findAllFilteredAndSorted(array $filters, ?array $sort, SortResolver $resolver): array
     {
         $qb = $this->getEntityManager()->createQueryBuilder()
             ->select('e', 'd')
@@ -43,22 +44,14 @@ class EmployeeRepository extends ServiceEntityRepository implements EmployeeRepo
         }
 
         if ($sort !== null) {
-            [$field, $direction] = $this->parseSort($sort);
-            $qb->orderBy("e.$field", $direction);
+            [$field, $direction] = $sort;
+
+            if ($resolver->isDbSortable($field)) {
+                $column = $resolver->getDbSortColumn($field);
+                $qb->orderBy($column, $direction);
+            }
         }
 
         return $qb->getQuery()->getResult();
-    }
-
-    private function parseSort(string $sort): array
-    {
-        $direction = 'ASC';
-
-        if (str_starts_with($sort, '-')) {
-            $direction = 'DESC';
-            $sort = substr($sort, 1);
-        }
-
-        return [$sort, $direction];
     }
 }

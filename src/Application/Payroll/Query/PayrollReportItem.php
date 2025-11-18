@@ -21,4 +21,13 @@ class PayrollReportItem
     )
     {
     }
+
+    public function get(string $field)
+    {
+        if (!property_exists($this, $field)) {
+            throw new \InvalidArgumentException("Field '$field' does not exist in PayrollReportItem.");
+        }
+
+        return $this->{$field};
+    }
 }
