@@ -56,16 +56,4 @@ class GetPayrollQueryHandler
 
         return $results;
     }
-
-    private function parseSort(string $sort): array
-    {
-        $direction = 'ASC';
-
-        if (str_starts_with($sort, '-')) {
-            $direction = 'DESC';
-            $sort = substr($sort, 1);
-        }
-
-        return [$sort, $direction];
-    }
 }

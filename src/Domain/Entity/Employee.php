@@ -15,16 +15,17 @@ class Employee
     #[ORM\Column(type: UuidType::NAME, unique: true)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
+    /** @phpstan-ignore-next-line */
     private Uuid $id;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private string $name;
 
     #[ORM\Column(length: 255)]
-    private ?string $surname = null;
+    private string $surname;
 
     #[ORM\Column]
-    private ?int $remunerationBase = null;
+    private int $remunerationBase;
 
     #[ORM\Column]
     private ?int $yearsOfWork = null;
@@ -38,7 +39,7 @@ class Employee
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -50,7 +51,7 @@ class Employee
         return $this;
     }
 
-    public function getSurname(): ?string
+    public function getSurname(): string
     {
         return $this->surname;
     }
@@ -62,7 +63,7 @@ class Employee
         return $this;
     }
 
-    public function getRemunerationBase(): ?int
+    public function getRemunerationBase(): int
     {
         return $this->remunerationBase;
     }

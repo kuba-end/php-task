@@ -16,13 +16,14 @@ class Department
     #[ORM\Column(type: UuidType::NAME, unique: true)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
+    /** @phpstan-ignore-next-line */
     private Uuid $id;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private string $name;
 
     #[ORM\Column(enumType: DepartmentBonusTypeEnum::class)]
-    private ?DepartmentBonusTypeEnum $bonusType = null;
+    private DepartmentBonusTypeEnum $bonusType;
 
     #[ORM\Column]
     private ?int $bonusValue = null;
@@ -32,7 +33,7 @@ class Department
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -44,7 +45,7 @@ class Department
         return $this;
     }
 
-    public function getBonusType(): ?DepartmentBonusTypeEnum
+    public function getBonusType(): DepartmentBonusTypeEnum
     {
         return $this->bonusType;
     }

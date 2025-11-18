@@ -22,7 +22,7 @@ class PayrollReportItem
     {
     }
 
-    public function get(string $field)
+    public function get(string $field): mixed
     {
         if (!property_exists($this, $field)) {
             throw new \InvalidArgumentException("Field '$field' does not exist in PayrollReportItem.");

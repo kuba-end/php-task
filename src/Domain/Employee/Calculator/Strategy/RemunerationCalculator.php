@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace App\Domain\Employee\Calculator\Strategy;
 
 use App\Domain\Employee\Calculator\DTO\AdditionDTO;
-use App\Domain\Employee\Calculator\StrategyNotFoundException;
 use App\Domain\Entity\Employee;
+use App\Domain\Exception\StrategyNotFoundException;
 
 class RemunerationCalculator
 {
     /** @var array<BonusStrategyInterface> */
     private readonly iterable $strategies;
 
+    /**
+     * @param iterable<BonusStrategyInterface> $strategies
+     */
     public function __construct(iterable $strategies)
     {
         $this->strategies = $strategies;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Presentation\Http\Controller;
 
 use App\Application\Payroll\Query\GetPayrollReportQuery;
+use App\Application\Payroll\Query\PayrollReportItem;
 use App\Presentation\Http\Response\PayrollResponse;
 use App\Presentation\Http\Transformer\PayrollResponseTransformer;
 use OpenApi\Attributes as OA;
@@ -15,7 +16,6 @@ use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
-use Throwable;
 
 #[AsController]
 class PayrollController
@@ -27,6 +27,12 @@ class PayrollController
     }
 
     /**
+     * @param array{
+     *      department?: string,
+     *      name?: string,
+     *      surname?: string
+     *  } $filters
+     *
      * @throws ExceptionInterface
      */
     #[OA\Get(
@@ -75,7 +81,7 @@ class PayrollController
     )]
     public function getPayrollAction(
         #[MapQueryParameter('sort')] ?string $sort,
-        #[MapQueryParameter('filters')] array $filters = []
+        #[MapQueryParameter('filter')] array $filters = []
     ): JsonResponse
     {
         $envelope = $this->messageBus->dispatch(
@@ -88,6 +94,7 @@ class PayrollController
         /** @var HandledStamp|null $handled */
         $handled = $envelope->last(HandledStamp::class);
 
+        /** @var PayrollReportItem[] $reports */
         $reports = $handled?->getResult();
 
         return new JsonResponse(

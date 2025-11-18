@@ -4,6 +4,7 @@ namespace App\Common\Infrastructure\Factory;
 
 use App\Domain\Entity\Department;
 use App\Domain\Enum\DepartmentBonusTypeEnum;
+use LogicException;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
@@ -11,15 +12,6 @@ use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
  */
 final class DepartmentFactory extends PersistentProxyObjectFactory
 {
-    /**
-     * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
-     *
-     * @todo inject services if required
-     */
-    public function __construct()
-    {
-    }
-
     #[\Override]
     public static function class(): string
     {
@@ -39,6 +31,7 @@ final class DepartmentFactory extends PersistentProxyObjectFactory
         $bonusValue = match ($bonusType) {
             DepartmentBonusTypeEnum::FIXED_BONUS   => self::faker()->numberBetween(100, 1000),
             DepartmentBonusTypeEnum::PERCENT_BONUS => self::faker()->numberBetween(1, 50),
+            default => throw new LogicException('Unknown bonus type'),
         };
 
         return [
@@ -54,8 +47,6 @@ final class DepartmentFactory extends PersistentProxyObjectFactory
     #[\Override]
     protected function initialize(): static
     {
-        return $this
-            // ->afterInstantiate(function(Department $department): void {})
-        ;
+        return $this;
     }
 }

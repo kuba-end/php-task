@@ -19,7 +19,7 @@ class EmployeeRepository extends ServiceEntityRepository implements EmployeeRepo
     }
 
     /**
-     * @return array<Employee>
+     * @inheritDoc
      */
     public function findAllFilteredAndSorted(array $filters, ?array $sort, SortResolver $resolver): array
     {
@@ -48,10 +48,15 @@ class EmployeeRepository extends ServiceEntityRepository implements EmployeeRepo
 
             if ($resolver->isDbSortable($field)) {
                 $column = $resolver->getDbSortColumn($field);
-                $qb->orderBy($column, $direction);
+                if ($column) {
+                    $qb->orderBy($column, $direction);
+                }
             }
         }
 
-        return $qb->getQuery()->getResult();
+        /** @var Employee[] $result */
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
     }
 }

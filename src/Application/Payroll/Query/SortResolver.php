@@ -22,6 +22,9 @@ class SortResolver
         'bonusType',
     ];
 
+    /**
+     * @return array{string, string}|null
+     */
     public function parseSort(?string $sort): ?array
     {
         if ($sort === null) {
