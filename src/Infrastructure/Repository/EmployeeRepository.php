@@ -13,16 +13,21 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class EmployeeRepository extends ServiceEntityRepository implements EmployeeRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        public readonly SortResolver $sortResolver,
+    ) {
         parent::__construct($registry, Employee::class);
     }
 
     /**
      * @inheritDoc
      */
-    public function findAllFilteredAndSorted(array $filters, ?array $sort, SortResolver $resolver): array
-    {
+    public function findAllFilteredAndSorted(
+        array $filters = [],
+        ?string $sortField = null,
+        ?string $direction = null
+    ): array {
         $qb = $this->getEntityManager()->createQueryBuilder()
             ->select('e', 'd')
             ->from(Employee::class, 'e')
@@ -43,15 +48,8 @@ class EmployeeRepository extends ServiceEntityRepository implements EmployeeRepo
                 ->setParameter('name', $filters['name']);
         }
 
-        if ($sort !== null) {
-            [$field, $direction] = $sort;
-
-            if ($resolver->isDbSortable($field)) {
-                $column = $resolver->getDbSortColumn($field);
-                if ($column) {
-                    $qb->orderBy($column, $direction);
-                }
-            }
+        if ($sortField !== null && $this->sortResolver->isDbSortable($sortField)) {
+            $qb->orderBy($this->sortResolver->getDbSortColumn($sortField), $direction);
         }
 
         /** @var Employee[] $result */

@@ -11,14 +11,15 @@ interface EmployeeRepositoryInterface
 {
     /**
      * @param array{
-     *     string, string
-     * }|null $sort
-     * @param array{
      *     department?: string,
      *     name?: string,
      *     surname?: string
      * } $filters
      * @return array<Employee>
      */
-    public function findAllFilteredAndSorted(array $filters, ?array $sort, SortResolver $resolver): array;
+    public function findAllFilteredAndSorted(
+        array $filters = [],
+        ?string $sortField = null,
+        ?string $direction = null
+    ): array;
 }

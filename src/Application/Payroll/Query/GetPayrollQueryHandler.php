@@ -31,11 +31,22 @@ class GetPayrollQueryHandler
         $sort = $this->sortResolver->parseSort($query->sort);
 
         if ($sort !== null) {
+            [$field, $direction] = $sort;
+            $this->sortResolver->assertSortable($field);
+        } else {
+            $field = null;
+            $direction = null;
+        }
+
+        if ($sort !== null) {
             $this->sortResolver->assertSortable($sort[0]);
         }
 
-        $employees = $this->employeeRepository
-            ->findAllFilteredAndSorted($query->filters, $sort, $this->sortResolver);
+        $employees = $this->employeeRepository->findAllFilteredAndSorted(
+            $query->filters,
+            $field,
+            $direction
+        );
 
         $results = [];
         foreach ($employees as $employee) {
