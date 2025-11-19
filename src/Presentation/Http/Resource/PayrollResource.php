@@ -20,6 +20,5 @@ class PayrollResource
         public readonly PayrollAttributes $attributes,
     )
     {
-
     }
 }

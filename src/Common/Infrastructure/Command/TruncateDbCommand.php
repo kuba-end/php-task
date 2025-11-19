@@ -2,8 +2,8 @@
 
 namespace App\Common\Infrastructure\Command;
 
-use App\Common\Infrastructure\Factory\DepartmentFactory;
-use App\Common\Infrastructure\Factory\EmployeeFactory;
+use App\Common\Infrastructure\FixtureFactory\DepartmentFactory;
+use App\Common\Infrastructure\FixtureFactory\EmployeeFactory;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

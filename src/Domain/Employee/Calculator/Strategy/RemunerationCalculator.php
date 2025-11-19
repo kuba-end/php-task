@@ -21,6 +21,9 @@ class RemunerationCalculator
         $this->strategies = $strategies;
     }
 
+    /**
+     * @throws StrategyNotFoundException
+     */
     public function calculate(Employee $employee): AdditionDTO
     {
         $bonusType = $employee->getDepartment()->getBonusType();

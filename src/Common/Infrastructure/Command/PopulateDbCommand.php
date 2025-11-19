@@ -2,8 +2,8 @@
 
 namespace App\Common\Infrastructure\Command;
 
-use App\Common\Infrastructure\Factory\DepartmentFactory;
-use App\Common\Infrastructure\Factory\EmployeeFactory;
+use App\Common\Infrastructure\FixtureFactory\DepartmentFactory;
+use App\Common\Infrastructure\FixtureFactory\EmployeeFactory;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -31,9 +31,10 @@ class PopulateDbCommand extends Command
 
         $io->title('Database Population Wizard');
 
+        /** @var string $departments */
         $departments = $io->ask(
             'How many departments should be created?',
-            5,
+            '5',
             function ($value) {
                 if (!is_numeric($value) || $value < 1) {
                     throw new \RuntimeException('Please provide a positive integer.');
@@ -42,9 +43,10 @@ class PopulateDbCommand extends Command
             }
         );
 
+        /** @var string $employees */
         $employees = $io->ask(
             'How many employees should be created?',
-            30,
+            '30',
             function ($value) {
                 if (!is_numeric($value) || $value < 1) {
                     throw new \RuntimeException('Please provide a positive integer.');
@@ -53,11 +55,11 @@ class PopulateDbCommand extends Command
             }
         );
 
-        $io->section("Creating $departments departments...");
-        DepartmentFactory::createMany($departments);
+        $io->section(sprintf("Creating %s departments...", $departments));
+        DepartmentFactory::createMany((int) $departments);
 
-        $io->section("Creating $employees employees...");
-        EmployeeFactory::createMany($employees);
+        $io->section(sprintf("Creating %s employees...", $employees));
+        EmployeeFactory::createMany((int) $employees);
 
         $io->success("Database population complete!");
 

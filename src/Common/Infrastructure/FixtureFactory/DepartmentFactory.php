@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Common\Infrastructure\Factory;
+namespace App\Common\Infrastructure\FixtureFactory;
 
 use App\Domain\Entity\Department;
 use App\Domain\Enum\DepartmentBonusTypeEnum;
@@ -39,14 +39,5 @@ final class DepartmentFactory extends PersistentProxyObjectFactory
             'bonusType' => $bonusType,
             'bonusValue' => $bonusValue,
         ];
-    }
-
-    /**
-     * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#initialization
-     */
-    #[\Override]
-    protected function initialize(): static
-    {
-        return $this;
     }
 }

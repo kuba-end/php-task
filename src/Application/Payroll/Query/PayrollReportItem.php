@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Application\Payroll\Query;
 
-
 use Symfony\Component\Uid\Uuid;
 
 class PayrollReportItem

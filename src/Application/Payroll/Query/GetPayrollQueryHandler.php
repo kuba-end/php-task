@@ -7,7 +7,6 @@ namespace App\Application\Payroll\Query;
 
 use App\Application\Payroll\Transformer\PayrollTransformer;
 use App\Domain\Employee\Calculator\Strategy\RemunerationCalculator;
-use App\Domain\Exception\InvalidSortingException;
 use App\Domain\Repository\EmployeeRepositoryInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 

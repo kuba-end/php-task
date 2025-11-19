@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Common\Infrastructure\Factory;
+namespace App\Common\Infrastructure\FixtureFactory;
 
 use App\Domain\Entity\Employee;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
@@ -10,15 +10,6 @@ use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
  */
 final class EmployeeFactory extends PersistentProxyObjectFactory
 {
-    /**
-     * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
-     *
-     * @todo inject services if required
-     */
-    public function __construct()
-    {
-    }
-
     #[\Override]
     public static function class(): string
     {
@@ -38,16 +29,5 @@ final class EmployeeFactory extends PersistentProxyObjectFactory
             'remunerationBase' => self::faker()->numberBetween(1000, 10000),
             'yearsOfWork' => self::faker()->numberBetween(1, 20),
         ];
-    }
-
-    /**
-     * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#initialization
-     */
-    #[\Override]
-    protected function initialize(): static
-    {
-        return $this
-            // ->afterInstantiate(function(Employee $employee): void {})
-        ;
     }
 }

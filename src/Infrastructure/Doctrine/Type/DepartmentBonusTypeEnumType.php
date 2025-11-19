@@ -6,6 +6,7 @@ namespace App\Infrastructure\Doctrine\Type;
 
 use App\Domain\Enum\DepartmentBonusTypeEnum;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 
 class DepartmentBonusTypeEnumType extends Type
@@ -27,7 +28,15 @@ class DepartmentBonusTypeEnumType extends Type
             return $value->value;
         }
 
-        return (string) $value;
+        if (!is_string($value)) {
+            throw ConversionException::conversionFailedInvalidType(
+                $value,
+                self::NAME,
+                ['string', DepartmentBonusTypeEnum::class]
+            );
+        }
+
+        return $value;
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform): ?DepartmentBonusTypeEnum
@@ -40,8 +49,15 @@ class DepartmentBonusTypeEnumType extends Type
             return $value;
         }
 
-        return DepartmentBonusTypeEnum::from((string) $value);
-    }
+        if (!is_string($value)) {
+            throw ConversionException::conversionFailedInvalidType(
+                $value,
+                self::NAME,
+                ['string']
+            );
+        }
+
+        return DepartmentBonusTypeEnum::from($value);    }
 
     public function getName(): string
     {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration;
 
-use App\Common\Infrastructure\Factory\DepartmentFactory;
-use App\Common\Infrastructure\Factory\EmployeeFactory;
+use App\Common\Infrastructure\FixtureFactory\DepartmentFactory;
+use App\Common\Infrastructure\FixtureFactory\EmployeeFactory;
 use App\Domain\Enum\DepartmentBonusTypeEnum;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Zenstruck\Foundry\Test\ResetDatabase;

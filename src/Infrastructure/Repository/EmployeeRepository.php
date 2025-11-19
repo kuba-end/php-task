@@ -48,7 +48,11 @@ class EmployeeRepository extends ServiceEntityRepository implements EmployeeRepo
                 ->setParameter('name', $filters['name']);
         }
 
-        if ($sortField !== null && $this->sortResolver->isDbSortable($sortField)) {
+        if (
+            null !== $sortField &&
+            $this->sortResolver->isDbSortable($sortField) &&
+            $this->sortResolver->getDbSortColumn($sortField)
+        ) {
             $qb->orderBy($this->sortResolver->getDbSortColumn($sortField), $direction);
         }
 
