@@ -18,7 +18,6 @@
         "symfony/framework-bundle": "^6",
         "symfony/messenger": "^7",
         "symfony/runtime": "^7",
-        "symfony/twig-bundle": "^7.3",
         "symfony/uid": "^7",
         "symfony/yaml": "^7",
         "zircote/swagger-php": "^5.7"

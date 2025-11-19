@@ -37,7 +37,6 @@ class QueryExceptionListener
                     [
                         'status' => '500',
                         'title' => 'Internal server error',
-                        'details' => $e->getMessage()
                     ]
                 ]
             ], 500);
