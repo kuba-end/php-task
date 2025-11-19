@@ -18,7 +18,6 @@ class PayrollResource
         public string $type,
         #[OA\Property()]
         public readonly PayrollAttributes $attributes,
-    )
-    {
+    ) {
     }
 }

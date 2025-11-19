@@ -34,11 +34,6 @@ class RemunerationCalculator
             }
         }
 
-        throw new StrategyNotFoundException(
-            sprintf(
-                "Strategy not found for bonus type %s",
-                $bonusType->name
-            )
-        );
+        throw new StrategyNotFoundException(sprintf('Strategy not found for bonus type %s', $bonusType->name));
     }
 }

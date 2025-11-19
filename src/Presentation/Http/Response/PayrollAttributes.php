@@ -24,7 +24,6 @@ class PayrollAttributes
         public readonly string $bonusType,
         #[OA\Property()]
         public readonly float $finalRemuneration,
-    )
-    {
+    ) {
     }
 }

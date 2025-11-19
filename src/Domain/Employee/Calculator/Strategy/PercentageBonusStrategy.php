@@ -17,14 +17,14 @@ class PercentageBonusStrategy implements BonusStrategyInterface
 
     public function supports(DepartmentBonusTypeEnum $bonusType): bool
     {
-        return $bonusType === DepartmentBonusTypeEnum::PERCENT_BONUS;
+        return DepartmentBonusTypeEnum::PERCENT_BONUS === $bonusType;
     }
 
     public function calculate(Employee $employee): AdditionDTO
     {
         $remunerationBase = $employee->getRemunerationBase();
         $employeeDepartment = $employee->getDepartment();
-        $additionalAmount = $remunerationBase * $employeeDepartment->getBonusValue()/100;
+        $additionalAmount = $remunerationBase * $employeeDepartment->getBonusValue() / 100;
         $finalRemuneration = $remunerationBase + $additionalAmount;
 
         return $this->additionDTOFactory->create(

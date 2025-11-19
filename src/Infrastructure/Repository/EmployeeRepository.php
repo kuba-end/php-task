@@ -20,13 +20,10 @@ class EmployeeRepository extends ServiceEntityRepository implements EmployeeRepo
         parent::__construct($registry, Employee::class);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function findAllFilteredAndSorted(
         array $filters = [],
         ?string $sortField = null,
-        ?string $direction = null
+        ?string $direction = null,
     ): array {
         $qb = $this->getEntityManager()->createQueryBuilder()
             ->select('e', 'd')
@@ -49,9 +46,9 @@ class EmployeeRepository extends ServiceEntityRepository implements EmployeeRepo
         }
 
         if (
-            null !== $sortField &&
-            $this->sortResolver->isDbSortable($sortField) &&
-            $this->sortResolver->getDbSortColumn($sortField)
+            null !== $sortField
+            && $this->sortResolver->isDbSortable($sortField)
+            && $this->sortResolver->getDbSortColumn($sortField)
         ) {
             $qb->orderBy($this->sortResolver->getDbSortColumn($sortField), $direction);
         }

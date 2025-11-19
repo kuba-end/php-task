@@ -27,7 +27,7 @@ class SortResolver
      */
     public function parseSort(?string $sort): ?array
     {
-        if ($sort === null) {
+        if (null === $sort) {
             return null;
         }
 

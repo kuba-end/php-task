@@ -22,7 +22,7 @@ class PayrollController
 {
     public function __construct(
         private readonly MessageBusInterface $messageBus,
-        private readonly PayrollResponseTransformer $payrollResponseTransformer
+        private readonly PayrollResponseTransformer $payrollResponseTransformer,
     ) {
     }
 
@@ -39,7 +39,7 @@ class PayrollController
         path: 'api/payroll',
         summary: 'Get monthly payroll for employees - bonuses included',
         tags: ['Payroll'],
-        parameters:[
+        parameters: [
             new OA\Parameter(
                 name: 'sort',
                 description: 'Sort order of payroll',
@@ -67,7 +67,7 @@ class PayrollController
                 in: 'query',
                 required: false,
                 schema: new OA\Schema(type: 'string', example: 'Price')
-            )
+            ),
         ],
         responses: [
             new OA\Response(
@@ -76,14 +76,13 @@ class PayrollController
                 content: new OA\JsonContent(
                     ref: PayrollResponse::class
                 )
-            )
+            ),
         ]
     )]
     public function getPayrollAction(
         #[MapQueryParameter('sort')] ?string $sort,
-        #[MapQueryParameter('filter')] array $filters = []
-    ): JsonResponse
-    {
+        #[MapQueryParameter('filter')] array $filters = [],
+    ): JsonResponse {
         $envelope = $this->messageBus->dispatch(
             new GetPayrollReportQuery(
                 sort: $sort,

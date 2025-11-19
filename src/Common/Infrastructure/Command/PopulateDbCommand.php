@@ -39,6 +39,7 @@ class PopulateDbCommand extends Command
                 if (!is_numeric($value) || $value < 1) {
                     throw new \RuntimeException('Please provide a positive integer.');
                 }
+
                 return (int) $value;
             }
         );
@@ -51,17 +52,18 @@ class PopulateDbCommand extends Command
                 if (!is_numeric($value) || $value < 1) {
                     throw new \RuntimeException('Please provide a positive integer.');
                 }
+
                 return (int) $value;
             }
         );
 
-        $io->section(sprintf("Creating %s departments...", $departments));
+        $io->section(sprintf('Creating %s departments...', $departments));
         DepartmentFactory::createMany((int) $departments);
 
-        $io->section(sprintf("Creating %s employees...", $employees));
+        $io->section(sprintf('Creating %s employees...', $employees));
         EmployeeFactory::createMany((int) $employees);
 
-        $io->success("Database population complete!");
+        $io->success('Database population complete!');
 
         return Command::SUCCESS;
     }

@@ -16,7 +16,6 @@ class GetPayrollReportQuery
     public function __construct(
         public readonly ?string $sort = null,
         public readonly array $filters = [],
-    )
-    {
+    ) {
     }
 }

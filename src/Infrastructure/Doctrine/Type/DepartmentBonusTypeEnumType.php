@@ -20,7 +20,7 @@ class DepartmentBonusTypeEnumType extends Type
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 
@@ -29,11 +29,7 @@ class DepartmentBonusTypeEnumType extends Type
         }
 
         if (!is_string($value)) {
-            throw ConversionException::conversionFailedInvalidType(
-                $value,
-                self::NAME,
-                ['string', DepartmentBonusTypeEnum::class]
-            );
+            throw ConversionException::conversionFailedInvalidType($value, self::NAME, ['string', DepartmentBonusTypeEnum::class]);
         }
 
         return $value;
@@ -41,7 +37,7 @@ class DepartmentBonusTypeEnumType extends Type
 
     public function convertToPHPValue($value, AbstractPlatform $platform): ?DepartmentBonusTypeEnum
     {
-        if ($value === null || $value === '') {
+        if (null === $value || '' === $value) {
             return null;
         }
 
@@ -50,14 +46,11 @@ class DepartmentBonusTypeEnumType extends Type
         }
 
         if (!is_string($value)) {
-            throw ConversionException::conversionFailedInvalidType(
-                $value,
-                self::NAME,
-                ['string']
-            );
+            throw ConversionException::conversionFailedInvalidType($value, self::NAME, ['string']);
         }
 
-        return DepartmentBonusTypeEnum::from($value);    }
+        return DepartmentBonusTypeEnum::from($value);
+    }
 
     public function getName(): string
     {
@@ -69,4 +62,3 @@ class DepartmentBonusTypeEnumType extends Type
         return true;
     }
 }
-

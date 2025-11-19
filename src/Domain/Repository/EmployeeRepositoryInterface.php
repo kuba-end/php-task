@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Repository;
 
-use App\Application\Payroll\Query\SortResolver;
 use App\Domain\Entity\Employee;
 
 interface EmployeeRepositoryInterface
@@ -15,11 +14,12 @@ interface EmployeeRepositoryInterface
      *     name?: string,
      *     surname?: string
      * } $filters
+     *
      * @return array<Employee>
      */
     public function findAllFilteredAndSorted(
         array $filters = [],
         ?string $sortField = null,
-        ?string $direction = null
+        ?string $direction = null,
     ): array;
 }

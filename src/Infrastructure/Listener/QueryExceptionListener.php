@@ -15,7 +15,7 @@ class QueryExceptionListener
     {
         $e = $event->getThrowable();
 
-        if ($e instanceof HandlerFailedException && $e->getPrevious() !== null) {
+        if ($e instanceof HandlerFailedException && null !== $e->getPrevious()) {
             $e = $e->getPrevious();
         }
 
@@ -26,8 +26,8 @@ class QueryExceptionListener
                         'status' => '400',
                         'title' => 'Invalid sorting',
                         'detail' => $e->getMessage(),
-                    ]
-                ]
+                    ],
+                ],
             ], 400);
 
             $event->setResponse($response);
@@ -37,8 +37,8 @@ class QueryExceptionListener
                     [
                         'status' => '500',
                         'title' => 'Internal server error',
-                    ]
-                ]
+                    ],
+                ],
             ], 500);
 
             $event->setResponse($response);

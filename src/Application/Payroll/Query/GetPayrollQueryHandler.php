@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Application\Payroll\Query;
 
-
 use App\Application\Payroll\Transformer\PayrollTransformer;
 use App\Domain\Employee\Calculator\Strategy\RemunerationCalculator;
 use App\Domain\Repository\EmployeeRepositoryInterface;
@@ -18,8 +17,7 @@ class GetPayrollQueryHandler
         private readonly RemunerationCalculator $calculator,
         private readonly PayrollTransformer $payrollTransformer,
         private readonly SortResolver $sortResolver,
-    )
-    {
+    ) {
     }
 
     /**
@@ -29,7 +27,7 @@ class GetPayrollQueryHandler
     {
         $sort = $this->sortResolver->parseSort($query->sort);
 
-        if ($sort !== null) {
+        if (null !== $sort) {
             [$field, $direction] = $sort;
             $this->sortResolver->assertSortable($field);
         } else {
@@ -37,7 +35,7 @@ class GetPayrollQueryHandler
             $direction = null;
         }
 
-        if ($sort !== null) {
+        if (null !== $sort) {
             $this->sortResolver->assertSortable($sort[0]);
         }
 
@@ -54,11 +52,11 @@ class GetPayrollQueryHandler
             $results[] = $this->payrollTransformer->transform($employee, $additionData);
         }
 
-        if ($sort !== null && $this->sortResolver->isMemorySortable($sort[0])) {
+        if (null !== $sort && $this->sortResolver->isMemorySortable($sort[0])) {
             [$field, $direction] = $sort;
 
-            usort($results, function($a, $b) use ($field, $direction) {
-                return $direction === 'ASC'
+            usort($results, function ($a, $b) use ($field, $direction) {
+                return 'ASC' === $direction
                     ? $a->{$field} <=> $b->{$field}
                     : $b->{$field} <=> $a->{$field};
             });

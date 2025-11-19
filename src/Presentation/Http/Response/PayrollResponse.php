@@ -13,7 +13,6 @@ class PayrollResponse
     public function __construct(
         #[OA\Property()]
         public readonly PayrollResource $data,
-    )
-    {
+    ) {
     }
 }

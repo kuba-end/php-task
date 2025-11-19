@@ -12,8 +12,7 @@ class AdditionDTOFactory
         float $additionalAmount,
         string $bonusType,
         float $finalRemuneration,
-    ): AdditionDTO
-    {
+    ): AdditionDTO {
         return new AdditionDTO(
             $additionalAmount,
             $bonusType,

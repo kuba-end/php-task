@@ -80,6 +80,7 @@ class Employee
     public function setDepartment(Department $department): Employee
     {
         $this->department = $department;
+
         return $this;
     }
 }

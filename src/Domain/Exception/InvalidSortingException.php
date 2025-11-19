@@ -12,7 +12,6 @@ class InvalidSortingException extends BadRequestHttpException
 
     public function __construct(
         string $message = self::EXCEPTION_MESSAGE,
-
     ) {
         parent::__construct($message);
     }

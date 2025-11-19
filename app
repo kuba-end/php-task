@@ -50,6 +50,8 @@ case "$action" in
   php )
     shift
     eval "docker exec -it -u ${PUID} -w /var/www/${dir} ${container_php} php ${@}" ;;
+  phpstan )
+      eval "docker exec -it -u "${PUID}" "${container_php}" php -d memory_limit=1G ./vendor/bin/phpstan analyse" ;;
   tests )
     shift
     eval "docker exec --env-file ../.env.test -it -u ${PUID} -w /var/www/${dir} ${container_php} \

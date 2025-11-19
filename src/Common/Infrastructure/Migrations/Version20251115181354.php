@@ -21,7 +21,7 @@ final class Version20251115181354 extends AbstractMigration
     {
         $platform = $this->connection->getDatabasePlatform()->getName();
 
-        if ($platform === 'sqlite') {
+        if ('sqlite' === $platform) {
             $this->addSql('
                 CREATE TABLE employee (
                     id BLOB NOT NULL,

@@ -15,6 +15,7 @@ class PayrollResponseTransformer
 
     /**
      * @param array<PayrollReportItem> $payrollItems
+     *
      * @return array<PayrollResponse>
      */
     public function transform(array $payrollItems): array

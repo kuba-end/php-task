@@ -17,8 +17,7 @@ class PayrollReportItem
         public readonly float $additionAmount,
         public readonly string $bonusType,
         public readonly float $finalRemuneration,
-    )
-    {
+    ) {
     }
 
     public function get(string $field): mixed

@@ -19,7 +19,7 @@ class FixedBonusStrategy implements BonusStrategyInterface
 
     public function supports(DepartmentBonusTypeEnum $bonusType): bool
     {
-        return $bonusType === DepartmentBonusTypeEnum::FIXED_BONUS;
+        return DepartmentBonusTypeEnum::FIXED_BONUS === $bonusType;
     }
 
     public function calculate(Employee $employee): AdditionDTO

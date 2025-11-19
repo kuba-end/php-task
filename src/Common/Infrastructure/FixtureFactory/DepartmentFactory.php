@@ -4,7 +4,6 @@ namespace App\Common\Infrastructure\FixtureFactory;
 
 use App\Domain\Entity\Department;
 use App\Domain\Enum\DepartmentBonusTypeEnum;
-use LogicException;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
@@ -29,9 +28,9 @@ final class DepartmentFactory extends PersistentProxyObjectFactory
         $bonusType = self::faker()->randomElement(DepartmentBonusTypeEnum::cases());
 
         $bonusValue = match ($bonusType) {
-            DepartmentBonusTypeEnum::FIXED_BONUS   => self::faker()->numberBetween(100, 1000),
+            DepartmentBonusTypeEnum::FIXED_BONUS => self::faker()->numberBetween(100, 1000),
             DepartmentBonusTypeEnum::PERCENT_BONUS => self::faker()->numberBetween(1, 50),
-            default => throw new LogicException('Unknown bonus type'),
+            default => throw new \LogicException('Unknown bonus type'),
         };
 
         return [

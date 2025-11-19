@@ -28,7 +28,7 @@ class TruncateDbCommand extends Command
         DepartmentFactory::repository()->truncate();
         EmployeeFactory::repository()->truncate();
 
-        $io->success("Database population complete!");
+        $io->success('Database population complete!');
 
         return Command::SUCCESS;
     }

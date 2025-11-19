@@ -23,7 +23,7 @@ final class EmployeeFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'department' => DepartmentFactory::random(), // <- key fix
+            'department' => DepartmentFactory::random(),
             'name' => self::faker()->firstName(),
             'surname' => self::faker()->lastName(20),
             'remunerationBase' => self::faker()->numberBetween(1000, 10000),
