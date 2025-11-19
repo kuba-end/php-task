@@ -2,6 +2,8 @@ doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
         driver: 'pdo_sqlite'
+        types:
+            department_bonus_type_enum: App\Infrastructure\Doctrine\Type\DepartmentBonusTypeEnumType
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
@@ -9,8 +11,8 @@ doctrine:
         mappings:
             Entity:
                 is_bundle: false
-                type: attribute
-                dir: '%kernel.project_dir%/src/Domain/Entity/'
+                type: xml
+                dir: '%kernel.project_dir%/config/doctrine/Entity'
                 prefix: App\Domain\Entity
 
 when@test:

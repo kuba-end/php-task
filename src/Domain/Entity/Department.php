@@ -3,29 +3,17 @@
 namespace App\Domain\Entity;
 
 use App\Domain\Enum\DepartmentBonusTypeEnum;
-use App\Infrastructure\Repository\DepartmentRepository;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
-use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 
-#[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 class Department
 {
-    #[ORM\Id]
-    #[ORM\Column(type: UuidType::NAME, unique: true)]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
     /** @phpstan-ignore-next-line */
     private Uuid $id;
 
-    #[ORM\Column(length: 255)]
     private string $name;
 
-    #[ORM\Column(enumType: DepartmentBonusTypeEnum::class)]
     private DepartmentBonusTypeEnum $bonusType;
 
-    #[ORM\Column]
     private ?int $bonusValue = null;
 
     public function getId(): Uuid

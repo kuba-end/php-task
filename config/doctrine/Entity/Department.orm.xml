@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="https://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\Entity\Department" repository-class="App\Infrastructure\Repository\DepartmentRepository">
+        <id name="id" type="uuid" column="id">
+            <generator strategy="CUSTOM"/>
+            <custom-id-generator class="Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator"/>
+        </id>
+
+        <field name="name" type="string" length="255" column="name"/>
+        <field name="bonusType" type="department_bonus_type_enum" column="bonus_type"/>
+        <field name="bonusValue" type="integer" nullable="true" column="bonus_value"/>
+    </entity>
+
+</doctrine-mapping>
+

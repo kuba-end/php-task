@@ -2,36 +2,21 @@
 
 namespace App\Domain\Entity;
 
-use App\Infrastructure\Repository\EmployeeRepository;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
-use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 
-#[ORM\Entity(repositoryClass: EmployeeRepository::class)]
 class Employee
 {
-    #[ORM\Id]
-    #[ORM\Column(type: UuidType::NAME, unique: true)]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
     /** @phpstan-ignore-next-line */
     private Uuid $id;
 
-    #[ORM\Column(length: 255)]
     private string $name;
 
-    #[ORM\Column(length: 255)]
     private string $surname;
 
-    #[ORM\Column]
     private int $remunerationBase;
 
-    #[ORM\Column]
     private ?int $yearsOfWork = null;
 
-    #[ORM\ManyToOne(targetEntity: Department::class)]
-    #[ORM\JoinColumn(name: 'department_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     private Department $department;
 
     public function getId(): Uuid
