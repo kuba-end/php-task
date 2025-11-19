@@ -430,4 +430,3 @@ class PayrollEndpointTest extends WebTestCase
         $this->assertArrayHasKey('finalRemuneration', $attributes);
     }
 }
-

@@ -9,7 +9,7 @@ use App\Application\Payroll\Query\PayrollReportItem;
 use App\Presentation\Http\Response\PayrollResponse;
 use App\Presentation\Http\Transformer\PayrollResponseTransformer;
 use OpenApi\Attributes as OA;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
@@ -18,7 +18,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 
 #[AsController]
-class PayrollController
+class PayrollController extends AbstractController
 {
     public function __construct(
         private readonly MessageBusInterface $messageBus,
@@ -82,7 +82,7 @@ class PayrollController
     public function getPayrollAction(
         #[MapQueryParameter('sort')] ?string $sort,
         #[MapQueryParameter('filter')] array $filters = []
-    ): JsonResponse
+    ): Response
     {
         $envelope = $this->messageBus->dispatch(
             new GetPayrollReportQuery(
@@ -97,8 +97,8 @@ class PayrollController
         /** @var PayrollReportItem[] $reports */
         $reports = $handled?->getResult();
 
-        return new JsonResponse(
-            $this->payrollResponseTransformer->transform($reports)
-        );
+        return $this->render('payroll/index.html.twig', [
+            'payroll' => $this->payrollResponseTransformer->transform($reports)
+        ]);
     }
 }
